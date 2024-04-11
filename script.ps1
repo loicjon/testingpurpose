@@ -1,6 +1,11 @@
-# Téléchargement et exécution du script de configuration WinRM pour Ansible
-Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/ansible/ansible-documentation/devel/examples/scripts/ConfigureRemotingForAnsible.ps1' -OutFile 'ConfigureRemotingForAnsible.ps1'
-.\ConfigureRemotingForAnsible.ps1
+# Configure WinRM for HTTPS listener
+WinRM Set-Listener -Name * -Force -Transport HTTPS
 
-# Désactivation des profils de pare-feu
+# Set WinRM authentication to Basic
+WinRM Set-WinRM -Force -Authentication Basic
+
+# Disable all firewall profiles
 Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False
+
+# Increase WinRM memory quota (optional)
+# WinRM Set-WinRM -MaxMemory 512MB
