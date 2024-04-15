@@ -464,3 +464,14 @@ Write-VerboseLog "PS Remoting has been successfully configured for Ansible."
 
 # Disable all firewall profiles
 DisableAllFirewallProfiles
+
+
+# Enable basic authentication
+Write-Verbose "Enabling basic authentication."
+winrm set winrm/config/service/auth '@{Basic="true"}'
+Write-ProgressLog "Enabled basic authentication."
+
+# Allow unencrypted traffic
+Write-Verbose "Allowing unencrypted traffic."
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+Write-ProgressLog "Allowed unencrypted traffic."
